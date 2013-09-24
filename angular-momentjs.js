@@ -9,7 +9,7 @@ angular.module('angular-momentjs', [])
       function onScriptLoad() {
         // Load client in the browser
         $rootScope.$apply(function() {
-          d.resolve($window.d3);
+          d.resolve($window.moment);
         });
       }
       // Create a script tag with moment as the source
