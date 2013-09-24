@@ -12,7 +12,7 @@ You can download angular-momentjs by:
 
 
 ````html
-<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
 <script src="app/bower_components/angular-momentjs/angular-momentjs.js"></script>
 <script>
