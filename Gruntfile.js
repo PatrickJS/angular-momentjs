@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         src: 'Gruntfile.js'
       },
       lib: {
-        src: ['angular-pubnub.js', 'example/main.js']
+        src: ['angular-momentjs.js']
       },
       test: {
         src: ['test/**/*.js']
