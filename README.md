@@ -30,8 +30,8 @@ You can download angular-momentjs by:
       $scope.time = $moment("20111031", "YYYYMMDD").fromNow();
       
       // if you don't include momentjs angular-moment will inject the script
-      $moment.promise.then(function($moment) {
-        $scope.anotherTime = $moment("20111031", "YYYYMMDD").fromNow();
+      $moment.promise.then(function(t) {
+        $scope.anotherTime = t("20111031", "YYYYMMDD").fromNow();
       })
     }]);
 </script>
