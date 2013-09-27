@@ -12,13 +12,28 @@ You can download angular-momentjs by:
 
 
 ````html
+<body ng-app="YOUR_APP" ng-controller="MainCtrl">
+ {{  }}
+</body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
 <script src="app/bower_components/angular-momentjs/angular-momentjs.js"></script>
 <script>
   angular.module('YOUR_APP', [
-    'angular-momentjs'
+    'angular-momentjs',
+    'controllers'
   ]);
+  
+  angular.module('controllers', ['angular-moment'])
+    .controller('MainCtrl', ['$scope', '$moment', function($scope, $moment) {
+      // if you include momentjs
+      $scope.time = $moment("20111031", "YYYYMMDD").fromNow();
+      
+      // if you don't include momentjs angular-moment will inject the script
+      $moment.promise.then(function($moment) {
+        $scope.anotherTime = $moment("20111031", "YYYYMMDD").fromNow();
+      })
+    }]);
 </script>
 
 ````
