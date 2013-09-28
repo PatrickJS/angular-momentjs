@@ -13,7 +13,9 @@ You can download angular-momentjs by:
 
 ````html
 <body ng-app="YOUR_APP" ng-controller="MainCtrl">
- {{  }}
+ {{ time }}
+  or
+ {{ anotherTime }}
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
