@@ -17,8 +17,8 @@ You can download angular-momentjs by:
   or
  {{ anotherTime }}
 </body>
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
 <script src="app/bower_components/angular-momentjs/angular-momentjs.js"></script>
 <script>
   angular.module('YOUR_APP', [
@@ -26,12 +26,12 @@ You can download angular-momentjs by:
     'controllers'
   ]);
   
-  angular.module('controllers', ['angular-moment'])
+  angular.module('controllers', [])
     .controller('MainCtrl', ['$scope', '$moment', function($scope, $moment) {
-      // if you include momentjs
+      // if you include momentjs script above
       $scope.time = $moment("20111031", "YYYYMMDD").fromNow();
       
-      // if you don't include momentjs angular-moment will inject the script
+      // if you don't include momentjs script then angular-moment will inject the script 
       $moment.promise.then(function(t) {
         $scope.anotherTime = t("20111031", "YYYYMMDD").fromNow();
       })
