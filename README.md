@@ -24,18 +24,23 @@ You can download angular-momentjs by:
   angular.module('YOUR_APP', [
     'angular-momentjs',
     'controllers'
-  ]);
-  
+  ]) // you're able to set Default settings
+  .config(function($momentProvider){
+    $momentProvider
+      .asyncLoading(false)
+      .scriptUrl('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.3.1/moment.min.js');
+  });
+
   angular.module('controllers', [])
-    .controller('MainCtrl', ['$scope', '$moment', function($scope, $moment) {
-      // if you include momentjs script above
+    .controller('MainCtrl', function($scope, $moment) {
+      // If didn't set asyncLoading angular-momentjs will assumeyou provided the moment.js
       $scope.time = $moment("20111031", "YYYYMMDD").fromNow();
-      
-      // if you don't include momentjs script then angular-moment will inject the script 
-      $moment.promise.then(function(t) {
-        $scope.anotherTime = t("20111031", "YYYYMMDD").fromNow();
+
+      // If set asyncLoading to true then angular-momentjs will inject the script and return a $moment promise
+      $moment.then(function(moment) {
+        $scope.anotherTime = moment("20111031", "YYYYMMDD").fromNow();
       })
-    }]);
+    });
 </script>
 
 ````
