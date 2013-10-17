@@ -10,10 +10,14 @@ module.provider('$moment', function() {
     return this;
   };
 
-  this.scriptUrl = function(url, min) {
+  this.scriptUrl = function(url) {
     scriptUrl = url || scriptUrl;
     return this;
   };
+
+  this.isPromise = function() {
+    return asyncLoading;
+  }
 
   // Create a script tag with moment as the source
   // and call our onScriptLoad callback when it
@@ -84,7 +88,13 @@ module.directive('moment', ['$moment', '$timeout',
 
       function updateMoment() {
         cancelTimer();
-        updateTime($moment(currentValue, currentFormat));
+        if ($moment.isPromise()) {
+          $moment.then(function(moment) {
+            updateTime(moment(currentValue, currentFormat));
+          };
+        } else {
+          updateTime($moment(currentValue, currentFormat));
+        }
       }
 
       scope.$watch(attr.amTimeAgo, function (value) {
@@ -135,7 +145,13 @@ module.filter('moment', ['$moment',
       }
 
       // else assume the given value is already a date
-      return $moment(value).format(format);
+      if ($moment.isPromise()) {
+        $moment.then(function(moment) {
+          return moment(value).format(format);
+        };
+      } else {
+        return $moment(value).format(format);
+      }
 
     };
 }]);
