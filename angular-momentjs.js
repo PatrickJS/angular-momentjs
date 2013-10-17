@@ -1,37 +1,58 @@
-(function() {
-  'use strict';
+;(function(module, undefined) {
+'use strict';
 
-angular.module('angular-momentjs', [])
-  .factory('$moment', ['$rootScope', '$document', '$q', '$window',
-    function($rootScope, $document, $q, $window) {
-      var d = $q.defer();
-      var moment = $window.moment;
-      function onScriptLoad() {
-        // Load client in the browser
-        $rootScope.$apply(function() {
-          d.resolve($window.moment);
+module.provider('$moment', function() {
+  var asyncLoading = false;
+  var scriptUrl = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.3.1/moment.min.js';
+
+  this.asyncLoading = function(config) {
+    asyncLoading = config || asyncLoading;
+    return this;
+  };
+
+  this.scriptUrl = function(url, min) {
+    scriptUrl = url || scriptUrl;
+    return this;
+  };
+
+  // Create a script tag with moment as the source
+  // and call our onScriptLoad callback when it
+  // has been loaded
+  function createScript($document, callback) {
+    var scriptTag = $document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = scriptUrl;
+    scriptTag.onreadystatechange = function () {
+      if (this.readyState == 'complete') {
+        callback();
+      }
+    }
+    scriptTag.onload = callback;
+    var s = $document.getElementsByTagName('body')[0];
+        s.appendChild(scriptTag);
+  }
+
+  this.$get = ['$timeout', '$document', '$q', '$window',
+    function($timeout, $document, $q, $window) {
+      var deferred = $q.defer();
+      var _moment = $window.moment;
+
+      // Load client in the browser
+      function onScriptLoad(callback) {
+        $timeout(function() {
+          deferred.resolve($window.moment);
         });
-      }
-      // Create a script tag with moment as the source
-      // and call our onScriptLoad callback when it
-      // has been loaded
-      var scriptTag = $document[0].createElement('script');
-      scriptTag.type = 'text/javascript';
-      scriptTag.async = true;
-      scriptTag.src = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js';
-      scriptTag.onreadystatechange = function () {
-        if (this.readyState == 'complete') onScriptLoad();
-      }
-      scriptTag.onload = onScriptLoad;
+      };
 
-      var s = $document[0].getElementsByTagName('body')[0];
-      s.appendChild(scriptTag);
+      createScript($document[0], onScriptLoad);
 
-      moment.promise = d.promise;
-      return moment;
-  }])
-  .directive('amTimeAgo', ['$moment', '$timeout', function ($moment, $timeout) {
+      return (this.asyncLoading) ? _moment : deferred.promise;
+  }]
+});
 
+module.directive('moment', ['$moment', '$timeout',
+  function($moment, $timeout) {
     return function (scope, element, attr) {
       var activeTimeout = null;
       var currentValue;
@@ -96,11 +117,14 @@ angular.module('angular-momentjs', [])
       scope.$on('$destroy', function () {
         cancelTimer();
       });
-    };
-  }])
-  .filter('amDateFormat', ['$moment', function ($moment) {
 
-    return function (value, format) {
+    };
+}]);
+
+module.filter('moment', ['$moment',
+  function($moment) {
+
+    return function(value, format) {
       if (typeof value === 'undefined' || value === null) {
         return '';
       }
@@ -109,11 +133,12 @@ angular.module('angular-momentjs', [])
         // Milliseconds since the epoch
         value = new Date(parseInt(value, 10));
       }
+
       // else assume the given value is already a date
-
       return $moment(value).format(format);
-    };
-  }]);
-  
 
-}());
+    };
+}]);
+
+
+}(angular.module('angular-momentjs', [])));
