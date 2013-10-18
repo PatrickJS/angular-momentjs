@@ -1,23 +1,19 @@
 ;(function(module, undefined) {
 'use strict';
 
-module.provider('$moment', function() {
-  var asyncLoading = false;
-  var scriptUrl = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.3.1/moment.min.js';
+module.provider('Moment', function() {
+  var _asyncLoading = false;
+  var _scriptUrl = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js';
 
   this.asyncLoading = function(config) {
-    asyncLoading = config || asyncLoading;
+    _asyncLoading = config || _asyncLoading;
     return this;
   };
 
   this.scriptUrl = function(url) {
-    scriptUrl = url || scriptUrl;
+    _scriptUrl = url || _scriptUrl;
     return this;
   };
-
-  this.isPromise = function() {
-    return asyncLoading;
-  }
 
   // Create a script tag with moment as the source
   // and call our onScriptLoad callback when it
@@ -26,7 +22,7 @@ module.provider('$moment', function() {
     var scriptTag = $document.createElement('script');
     scriptTag.type = 'text/javascript';
     scriptTag.async = true;
-    scriptTag.src = scriptUrl;
+    scriptTag.src = _scriptUrl;
     scriptTag.onreadystatechange = function () {
       if (this.readyState == 'complete') {
         callback();
@@ -37,27 +33,29 @@ module.provider('$moment', function() {
         s.appendChild(scriptTag);
   }
 
-  this.$get = ['$timeout', '$document', '$q', '$window',
-    function($timeout, $document, $q, $window) {
+  this.$get = function($timeout, $document, $q, $window) {
       var deferred = $q.defer();
       var _moment = $window.moment;
 
-      // Load client in the browser
-      function onScriptLoad(callback) {
-        $timeout(function() {
-          deferred.resolve($window.moment);
-        });
-      };
+      deferred.isPromise = true;
+      _moment.isPromise = false;
 
-      createScript($document[0], onScriptLoad);
+      if (_asyncLoading) {
+        // Load client in the browser
+        var onScriptLoad = function(callback) {
+          $timeout(function() {
+            deferred.resolve($window.moment);
+          });
+        };
+        createScript($document[0], onScriptLoad);
+      }
 
-      return (this.asyncLoading) ? _moment : deferred.promise;
-  }]
+      return (_asyncLoading) ? deferred.promise: _moment;
+  };
 });
 
-module.directive('moment', ['$moment', '$timeout',
-  function($moment, $timeout) {
-    return function (scope, element, attr) {
+module.directive('amTimeAgo', ['Moment', '$timeout', function(Moment, $timeout) {
+    return function(scope, element, attr) {
       var activeTimeout = null;
       var currentValue;
       var currentFormat;
@@ -71,7 +69,16 @@ module.directive('moment', ['$moment', '$timeout',
 
       function updateTime(momentInstance) {
         element.text(momentInstance.fromNow());
-        var howOld = $moment().diff(momentInstance, 'minute');
+        var howOld;
+
+        if (Moment.isPromise) {
+          Moment().then(function(moment) {
+            howOld = moment().diff(momentInstance, 'minute');
+          });
+        } else {
+          howOld = Moment().diff(momentInstance, 'minute');
+        }
+
         var secondsUntilUpdate = 3600;
         if (howOld < 1) {
           secondsUntilUpdate = 1;
@@ -88,12 +95,12 @@ module.directive('moment', ['$moment', '$timeout',
 
       function updateMoment() {
         cancelTimer();
-        if ($moment.isPromise()) {
-          $moment.then(function(moment) {
+        if (Moment().isPromise) {
+          Moment.then(function(moment) {
             updateTime(moment(currentValue, currentFormat));
-          };
+          });
         } else {
-          updateTime($moment(currentValue, currentFormat));
+          updateTime(Moment(currentValue, currentFormat));
         }
       }
 
@@ -131,9 +138,7 @@ module.directive('moment', ['$moment', '$timeout',
     };
 }]);
 
-module.filter('moment', ['$moment',
-  function($moment) {
-
+module.filter('amDateFormat', ['Moment', function(Moment) {
     return function(value, format) {
       if (typeof value === 'undefined' || value === null) {
         return '';
@@ -145,12 +150,12 @@ module.filter('moment', ['$moment',
       }
 
       // else assume the given value is already a date
-      if ($moment.isPromise()) {
-        $moment.then(function(moment) {
+      if (Moment.isPromise) {
+        Moment().then(function(moment) {
           return moment(value).format(format);
-        };
+        });
       } else {
-        return $moment(value).format(format);
+        return Moment(value).format(format);
       }
 
     };
