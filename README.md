@@ -33,10 +33,12 @@ You can download angular-momentjs by:
 
   angular.module('controllers', [])
     .controller('MainCtrl', function($scope, Moment) {
-      // If didn't set asyncLoading angular-momentjs will assumeyou provided the moment.js
+      // If didn't set asyncLoading angular-momentjs 
+      // will assume you provided moment.js
       $scope.time = Moment("20111031", "YYYYMMDD").fromNow();
 
-      // If set asyncLoading to true then angular-momentjs will inject the script and return a $moment promise
+      // If you set asyncLoading to true then angular-momentjs 
+      // will inject the script and return a promise
       Moment.then(function(moment) {
         $scope.anotherTime = moment("20111031", "YYYYMMDD").fromNow();
       })
