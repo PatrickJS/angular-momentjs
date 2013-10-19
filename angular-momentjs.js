@@ -72,7 +72,7 @@ module.directive('amTimeAgo', ['Moment', '$timeout', function(Moment, $timeout) 
         var howOld;
 
         if (Moment.isPromise) {
-          Moment().then(function(moment) {
+          Moment.then(function(moment) {
             howOld = moment().diff(momentInstance, 'minute');
           });
         } else {
@@ -95,7 +95,7 @@ module.directive('amTimeAgo', ['Moment', '$timeout', function(Moment, $timeout) 
 
       function updateMoment() {
         cancelTimer();
-        if (Moment().isPromise) {
+        if (Moment.isPromise) {
           Moment.then(function(moment) {
             updateTime(moment(currentValue, currentFormat));
           });
@@ -151,7 +151,7 @@ module.filter('amDateFormat', ['Moment', function(Moment) {
 
       // else assume the given value is already a date
       if (Moment.isPromise) {
-        Moment().then(function(moment) {
+        Moment.then(function(moment) {
           return moment(value).format(format);
         });
       } else {
