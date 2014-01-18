@@ -33,7 +33,7 @@ module.provider('Moment', function() {
         s.appendChild(scriptTag);
   }
 
-  this.$get = function($timeout, $document, $q, $window) {
+  this.$get = ['$timeout', '$document', '$q', '$window', function($timeout, $document, $q, $window) {
       var deferred = $q.defer();
       var _moment = $window.moment;
 
@@ -51,7 +51,7 @@ module.provider('Moment', function() {
       }
 
       return (_asyncLoading) ? deferred.promise: _moment;
-  };
+  }];
 });
 
 module.directive('amTimeAgo', ['Moment', '$timeout', function(Moment, $timeout) {
