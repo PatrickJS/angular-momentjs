@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.0/moment.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
+  <script src="../angular-momentjs.js"></script>
+  <!--
+  <script src="app/bower_components/angular-momentjs/angular-momentjs.js"></script>
+   -->
+  <script>
+    // Full stack trace
+    Error.stackTraceLimit = Infinity;
+
+    // Load angular modules
+    angular.module('syncApp', [
+      'angular-momentjs'
+    ])
+    .controller('SyncCtrl', function($scope, $moment) {
+      // If didn't set asyncLoading angular-momentjs will assume you provided the moment.js
+      $scope.time = $moment("20111031", "YYYYMMDD").fromNow();
+    });
+
+    angular.module('asyncApp', [
+      'angular-momentjs'
+    ]) // you're able to set Default settings
+    .config(function($momentProvider){
+      $momentProvider
+        .asyncLoading(true)
+        .scriptUrl('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.0/moment.min.js');
+        // You're able to add another version of Moment.js
+    })
+    .controller('AsyncCtrl', function($scope, $moment) {
+      // If set asyncLoading to true then angular-momentjs will inject the script and return a $moment promise
+      $moment.then(function(moment) {
+        $scope.time = moment("20111031", "YYYYMMDD").fromNow();
+      })
+    });
+
+
+  </script>
+</head>
+<body>
+  <div id="syncApp" ng-controller="SyncCtrl">
+    {{ time }}
+  </div>
+  or
+  <div id="asyncApp" ng-controller="AsyncCtrl">
+    {{ time }}
+  </div>
+
+  <script>
+    // Manually bootstrap two angular apps for sync and async example
+    angular.bootstrap(document.getElementById('syncApp'), ['syncApp']);
+    angular.bootstrap(document.getElementById('asyncApp'), ['asyncApp']);
+  </script>
+</body>
+</html>
+
+
