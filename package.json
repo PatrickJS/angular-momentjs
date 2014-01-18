@@ -1,31 +1,51 @@
 {
   "name": "angular-momentjs",
-  "version": "0.0.5",
-  "main": "angular-momentjs.js",
+  "version": "0.1.5",
   "description": "Moment.js for Angular.js",
   "homepage": "https://github.com/gdi2290/angular-momentjs",
   "bugs": "https://github.com/gdi2290/angular-momentjs/issues",
-  "author": {
-    "name": "Patrick Stapleton",
-    "email": "patrick@gdi2290.com",
-    "url": "www.gdi2290.com"
+  "keywords": [
+    "gdi2290",
+    "PatrickJS",
+    "angular",
+    "angularjs",
+    "moment",
+    "momentjs",
+    "moment.js",
+    "api"
+  ],
+  "author": [
+    {
+      "name": "Patrick Stapleton",
+      "email": "github@gdi2290.com",
+      "url": "www.gdi2290.com"
+    }
+  ],
+  "scripts": {
+    "start": "grunt",
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:gdi2290/angular-momentjs.git"
+    "url": "http://github.com/gdi2290/angular-momentjs.git"
   },
   "licenses": [
     {
       "type": "MIT"
     }
   ],
+  "dependencies": {
+  },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "load-grunt-tasks": "~0.1.0",
-    "time-grunt": "~0.1.0",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt-contrib-watch": "~0.5.0",
-    "grunt-complexity": "~0.1.3"
+    "connect-livereload": "*",
+    "load-grunt-tasks": "*",
+    "time-grunt": "*",
+    "grunt": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-connect": "*",
+    "grunt-ngmin": "*"
   }
 }
