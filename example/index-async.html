@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Async Moment</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
+  <script src="../angular-momentjs.js"></script>
+  <!--
+  <script src="app/bower_components/angular-momentjs/angular-momentjs.js"></script>
+   -->
+  <script>
+    // Full stack trace
+    Error.stackTraceLimit = Infinity;
+
+    angular.module('asyncApp', [
+      'angular-momentjs'
+    ]) // you're able to set Default settings
+    .config(function($momentProvider){
+      $momentProvider
+        .asyncLoading(true)
+        .scriptUrl('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.0/moment.min.js');
+        // You're able to add another version of Moment.js
+    })
+    .controller('AsyncCtrl', function($scope, $moment) {
+      // If set asyncLoading to true then angular-momentjs will inject the script and return a $moment promise
+      $moment.then(function(moment) {
+        $scope.time = moment("20111031", "YYYYMMDD").fromNow();
+      })
+    });
+
+
+  </script>
+</head>
+<body ng-app="asyncApp" ng-controller="AsyncCtrl">
+  {{ time }}
+</body>
+</html>
+
+
