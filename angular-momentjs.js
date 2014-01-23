@@ -1,6 +1,6 @@
 /*
-  angular-momentjs - v0.1.5 
-  2014-01-18
+  angular-momentjs - v0.1.6 
+  2014-01-23
 */
 (function(window, angular, undefined) {
     angular.module("angular-moment", [ "gdi2290.moment" ]);
@@ -10,7 +10,8 @@
     angular.module("ngMomentJS", [ "gdi2290.moment" ]);
     angular.module("gdi2290.amTimeAgo", []);
     angular.module("gdi2290.amDateFormat", []);
-    angular.module("gdi2290.moment", [ "gdi2290.amDateFormat", "gdi2290.amTimeAgo" ]);
+    angular.module("gdi2290.moment-service", []);
+    angular.module("gdi2290.moment", [ "gdi2290.moment-service", "gdi2290.amDateFormat", "gdi2290.amTimeAgo" ]);
     "use strict";
     angular.module("gdi2290.amDateFormat").filter("amDateFormat", function($moment) {
         return function(value, format) {
@@ -103,7 +104,7 @@
         };
     });
     "use strict";
-    angular.module("gdi2290.moment").provider("$moment", function() {
+    angular.module("gdi2290.moment-service").provider("$moment", function() {
         var _asyncLoading = false;
         var _scriptUrl = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.0/moment.min.js";
         this.asyncLoading = function(config) {
