@@ -1,6 +1,6 @@
 {
   "name": "angular-momentjs",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "angular-momentjs.js",
   "description": "Moment.js for Angular.js",
   "keywords": [
@@ -8,9 +8,12 @@
     "PatrickJS",
     "angular",
     "angularjs",
+    "angular.js",
     "moment",
     "momentjs",
     "moment.js",
+    "time ago",
+    "timeago",
     "api"
   ],
   "ignore": [
