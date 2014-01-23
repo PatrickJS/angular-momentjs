@@ -95,8 +95,31 @@ module.exports = function(grunt) {
         }
       }
 
+    },
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc'
+      },
+      gruntfile: {
+        src: 'Gruntfile.js'
+      },
+      lib: {
+        src: ['lib/**/*.js']
+      }
+    },
+     complexity: {
+      generic: {
+        src: ['lib/**/*.js'],
+        options: {
+          jsLintXML: 'report.xml', // create XML JSLint-like report
+          checkstyleXML: 'checkstyle.xml', // create checkstyle report
+          errorsOnly: false, // show only maintainability errors
+          cyclomatic: 3,
+          halstead: 8,
+          maintainability: 100
+        }
+      }
     }
-
   });
 
   grunt.registerTask('server', function (target) {
@@ -107,6 +130,8 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', [
+    // 'complexity',
+    'jshint'
   ]);
 
   grunt.registerTask('build', [
