@@ -1,2 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jslint>
+<file name="lib/directives/amDateFormat.js">
+  
+  <issue
+    line="4"
+    char="&lt;anonymous&gt;"
+    evidence="&lt;anonymous&gt; is too complicated"
+    reason="Cyclomatic: 4,
+    Halstead: 12.071
+    | Effort: 2984.7
+    | Volume: 247.25
+    | Vocabulary: 27" />
+  
+</file>
+<file name="lib/filters/amTimeAgo.js">
+  
+  <issue
+    line="20"
+    char="updateTime"
+    evidence="updateTime is too complicated"
+    reason="Cyclomatic: 5,
+    Halstead: 7.7143
+    | Effort: 2611.9
+    | Volume: 338.58
+    | Vocabulary: 30" />
+  
+  <issue
+    line="59"
+    char="&lt;anonymous&gt;"
+    evidence="&lt;anonymous&gt; is too complicated"
+    reason="Cyclomatic: 4,
+    Halstead: 4.5000
+    | Effort: 600.47
+    | Volume: 133.44
+    | Vocabulary: 18" />
+  
+</file>
+<file name="lib/index.js">
+  
+</file>
+<file name="lib/services/moment.js">
+  
+</file>
+</jslint>
