@@ -1,6 +1,6 @@
 /*
   angular-momentjs - v0.1.6 
-  2014-01-23
+  2014-01-28
 */
 (function(window, angular, undefined) {
     angular.module("angular-moment", [ "gdi2290.moment" ]);
@@ -78,7 +78,7 @@
                 }
             }
             scope.$watch(attrs.amTimeAgo, function(value) {
-                if (isUndefined) {
+                if (isUndefined(value)) {
                     cancelTimer();
                     if (currentValue) {
                         element.text("");
