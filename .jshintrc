@@ -13,7 +13,6 @@
   "node": true,
   "globals": {
     "window": false,
-    "Raven": false,
     "document": false,
     "angular": false,
     "$": false,
