@@ -17,11 +17,13 @@
     "api"
   ],
   "ignore": [
-    "**/.*",
     "*.yml",
     "*.xml",
     "node_modules",
     "bower_components",
+    "node_modules",
+    "example",
+    "lib",
     "test",
     "tests"
   ],
