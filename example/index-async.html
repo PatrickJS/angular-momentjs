@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Async Moment</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
   <script src="../angular-momentjs.js"></script>
   <!--
   <script src="app/bower_components/angular-momentjs/angular-momentjs.js"></script>
@@ -17,7 +17,7 @@
     .config(function($momentProvider){
       $momentProvider
         .asyncLoading(true)
-        .scriptUrl('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.0/moment.min.js');
+        .scriptUrl('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js');
         // You're able to add another version of Moment.js
     })
     .controller('AsyncCtrl', function($scope, $moment) {
