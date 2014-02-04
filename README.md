@@ -17,8 +17,8 @@ You can download angular-momentjs by:
   or
  {{ anotherTime }}
 </body>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.3.1/moment.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
 <script src="app/bower_components/angular-momentjs/angular-momentjs.js"></script>
 <script>
   angular.module('YOUR_APP', [
@@ -28,7 +28,7 @@ You can download angular-momentjs by:
   .config(function($momentProvider){
     $momentProvider
       .asyncLoading(false)
-      .scriptUrl('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.3.1/moment.min.js');
+      .scriptUrl('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js');
   });
 
   angular.module('controllers', [])
