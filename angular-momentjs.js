@@ -129,7 +129,7 @@
             var s = $document.getElementsByTagName("body")[0];
             s.appendChild(scriptTag);
         }
-        this.$get = function($timeout, $document, $q, $window) {
+        this.$get = ['$timeout', '$document', '$q', '$window', function($timeout, $document, $q, $window) {
             var deferred = $q.defer();
             var _moment = $window.moment;
             if (_asyncLoading) {
@@ -141,6 +141,6 @@
                 createScript($document[0], onScriptLoad);
             }
             return _asyncLoading ? deferred.promise : _moment;
-        };
+        }];
     });
 })(this, this.angular, void 0);
