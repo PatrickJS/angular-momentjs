@@ -28,6 +28,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "*"
+    "angular": "*",
+    "moment": "*"
   }
 }
