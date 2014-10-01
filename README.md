@@ -6,10 +6,11 @@ Moment.js with Angular.js
 
 You can download angular-momentjs by:
 
-* (prefered) Using bower and running `bower install angular-momentjs --save`
+* (preferred) Using bower and running `bower install angular-momentjs --save`
 * Using npm and running `npm install angular-momentjs --save`
 * Downloading it manually by clicking [here to download development unminified version](https://raw.github.com/gdi2290/angular-momentjs/master/angular-momentjs.js)
 
+#Example usage
 
 ````html
 <body ng-app="YOUR_APP" ng-controller="MainCtrl">
