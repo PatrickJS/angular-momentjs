@@ -1,6 +1,6 @@
 /*
-  angular-momentjs - v0.1.6 
-  2014-01-28
+  angular-momentjs - v0.1.8 
+  2014-11-06
 */
 (function(window, angular, undefined) {
     angular.module("angular-moment", [ "gdi2290.moment" ]);
@@ -13,7 +13,7 @@
     angular.module("gdi2290.moment-service", []);
     angular.module("gdi2290.moment", [ "gdi2290.moment-service", "gdi2290.amDateFormat", "gdi2290.amTimeAgo" ]);
     "use strict";
-    angular.module("gdi2290.amDateFormat").filter("amDateFormat", function($moment) {
+    angular.module("gdi2290.amDateFormat").filter("amDateFormat", [ "$moment", function($moment) {
         return function(value, format) {
             if (typeof value === "undefined" || value === null) {
                 return "";
@@ -29,9 +29,9 @@
                 return $moment(value).format(format);
             }
         };
-    });
+    } ]);
     "use strict";
-    angular.module("gdi2290.amTimeAgo").directive("amTimeAgo", function($moment, $timeout) {
+    angular.module("gdi2290.amTimeAgo").directive("amTimeAgo", [ "$moment", "$timeout", function($moment, $timeout) {
         function isUndefined(value) {
             return typeof value === "undefined" || value === null || value === "";
         }
@@ -102,7 +102,7 @@
                 cancelTimer();
             });
         };
-    });
+    } ]);
     "use strict";
     angular.module("gdi2290.moment-service").provider("$moment", function() {
         var _asyncLoading = false;
@@ -129,7 +129,7 @@
             var s = $document.getElementsByTagName("body")[0];
             s.appendChild(scriptTag);
         }
-        this.$get = ['$timeout', '$document', '$q', '$window', function($timeout, $document, $q, $window) {
+        this.$get = [ "$timeout", "$document", "$q", "$window", function($timeout, $document, $q, $window) {
             var deferred = $q.defer();
             var _moment = $window.moment;
             if (_asyncLoading) {
@@ -141,6 +141,6 @@
                 createScript($document[0], onScriptLoad);
             }
             return _asyncLoading ? deferred.promise : _moment;
-        }];
+        } ];
     });
 })(this, this.angular, void 0);
