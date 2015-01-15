@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         },
         banner: '/*\n  <%= pkg.name %> - v<%= pkg.version %> \n  ' +
           '<%= grunt.template.today("yyyy-mm-dd") %>\n*/\n'+
-        '',
+        ''
       },
       dist: {
         options: {
