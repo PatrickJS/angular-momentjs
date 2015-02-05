@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     concat: {
       dist:{}
     },
-    ngmin: {
+    ngAnnotate: {
       dist: {}
     },
     uglify: {
@@ -136,7 +136,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'concat',
-    'ngmin',
+    'ngAnnotate',
     'uglify'
   ]);
 

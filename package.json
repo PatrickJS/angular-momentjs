@@ -1,6 +1,6 @@
 {
   "name": "angular-momentjs",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Moment.js for Angular.js",
   "homepage": "https://github.com/gdi2290/angular-momentjs",
   "bugs": "https://github.com/gdi2290/angular-momentjs/issues",
@@ -37,19 +37,22 @@
       "type": "MIT"
     }
   ],
-  "dependencies": {},
+  "dependencies": {
+    "angular": "*",
+    "moment": "*"
+  },
   "devDependencies": {
     "connect-livereload": "*",
-    "load-grunt-tasks": "*",
-    "time-grunt": "*",
     "grunt": "*",
-    "grunt-contrib-copy": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-connect": "*",
-    "grunt-contrib-jshint": "*",
     "grunt-complexity": "*",
-    "grunt-ngmin": "*"
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-connect": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-ng-annotate": "^0.9.2",
+    "load-grunt-tasks": "*",
+    "time-grunt": "*"
   }
 }
