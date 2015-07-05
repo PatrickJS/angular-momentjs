@@ -1,6 +1,6 @@
 /*
-  angular-momentjs - v0.1.9 
-  2015-02-05
+  angular-momentjs - v0.2.1 
+  2015-07-05
 */
 (function(window, angular, undefined) {
     angular.module("angular-moment", [ "gdi2290.moment" ]);
@@ -106,13 +106,20 @@
     "use strict";
     angular.module("gdi2290.moment-service").provider("$moment", function() {
         var _asyncLoading = false;
-        var _scriptUrl = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.js";
+        var _scriptUrl = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.js";
+        var _localeConfig = {};
+        var _locale;
         this.asyncLoading = function(config) {
             _asyncLoading = config || _asyncLoading;
             return this;
         };
         this.scriptUrl = function(url) {
             _scriptUrl = url || _scriptUrl;
+            return this;
+        };
+        this.locale = function(locale, config) {
+            _locale = local || _locale;
+            _localeConfig = config || _localeConfig;
             return this;
         };
         function createScript(callback) {
@@ -138,10 +145,25 @@
             if (_asyncLoading) {
                 var onScriptLoad = function(callback) {
                     $timeout(function() {
+                        if (_locale) {
+                            if ($window.moment.lang) {
+                                $window.moment.lang(_locale, _localeConfig);
+                            } else {
+                                $window.moment.locale(_locale, _localeConfig);
+                            }
+                        }
                         deferred.resolve($window.moment);
                     });
                 };
                 createScript(onScriptLoad);
+            } else {
+                if (_locale) {
+                    if ($window.moment.lang) {
+                        $window.moment.lang(_locale, _localeConfig);
+                    } else {
+                        $window.moment.locale(_locale, _localeConfig);
+                    }
+                }
             }
             return _asyncLoading ? deferred.promise : _moment;
         } ];
