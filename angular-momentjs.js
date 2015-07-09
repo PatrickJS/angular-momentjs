@@ -118,7 +118,7 @@
             return this;
         };
         this.locale = function(locale, config) {
-            _locale = local || _locale;
+            _locale = locale || _locale;
             _localeConfig = config || _localeConfig;
             return this;
         };
