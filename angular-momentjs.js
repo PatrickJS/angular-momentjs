@@ -1,6 +1,6 @@
 /*
-  angular-momentjs - v0.2.1 
-  2015-07-05
+  angular-momentjs - v0.2.2 
+  2015-07-10
 */
 (function(window, angular, undefined) {
     angular.module("angular-moment", [ "gdi2290.moment" ]);
