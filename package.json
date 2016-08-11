@@ -4,6 +4,7 @@
   "description": "Moment.js for Angular.js",
   "homepage": "https://github.com/gdi2290/angular-momentjs",
   "bugs": "https://github.com/gdi2290/angular-momentjs/issues",
+  "main": "angular-momentjs.min.js",
   "keywords": [
     "gdi2290",
     "PatrickJS",
